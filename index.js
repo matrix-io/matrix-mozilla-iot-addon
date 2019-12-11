@@ -1,15 +1,21 @@
 /**
- * index.js - Loads the example adapter.
+ * index.js - Loads the virtual things adapter
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-'use strict';
+"use strict";
 
-const ExampleAdapter = require('./example-adapter');
+// const VirtualThingsAdapter = require('./virtual-things-adapter');
 
-module.exports = (addonManager, manifest) => {
-  new ExampleAdapter(addonManager, manifest);
+// module.exports = (addonManager) => {
+//   new VirtualThingsAdapter(addonManager);
+// };
+
+const MatrixAdaptery = require("./matrix-adapter");
+
+module.exports = (addonManager, _, errorCallback) => {
+  new MatrixAdapter(addonManager);
 };
