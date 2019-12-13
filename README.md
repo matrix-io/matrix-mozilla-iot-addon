@@ -15,15 +15,17 @@ This requires the following perquisites:
 - [Mozilla IoT](https://iot.mozilla.org/docs/gateway-getting-started-guide.html)
 - [MATRIX Lite JS](https://matrix-io.github.io/matrix-documentation/matrix-lite/getting-started/javascript/)
 
-```
+```bash
 cd ~/.mozilla-iot/addons/
 git clone https://github.com/matrix-io/matrix-mozilla-iot-addon matrix-adapter
+cd ./matrix-adapter
+npm install
 ```
 
 # Development
 
 Changes are loaded by restarting the `mozilla-iot-gateway` service.
 
-```
+```bash
 npm run load
 ```
