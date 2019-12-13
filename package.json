@@ -38,10 +38,7 @@
     "LICENSE",
     "SHA256SUMS",
     "index.js",
-    "manifest.json",
-    "static/image.png",
-    "static/video.mp4",
-    "virtual-things-adapter.js"
+    "manifest.json"
   ],
   "moziot": {
     "api": {

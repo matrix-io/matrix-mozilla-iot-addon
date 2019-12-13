@@ -9,11 +9,11 @@
       "strict_min_version": "0.0.1"
     }
   },
-  "homepage_url": "https://github.com/matrix-io",
+  "homepage_url": "https://github.com/matrix-io/matrix-mozilla-iot-addon",
   "id": "matrix-adapter",
-  "license": "MPL-2.0",
+  "license": "GPL-3.0",
   "manifest_version": 1,
   "name": "MATRIX Adapter",
-  "short_name": "Virtual",
+  "short_name": "MATRIX Adapter",
   "version": "0.0.1"
 }
