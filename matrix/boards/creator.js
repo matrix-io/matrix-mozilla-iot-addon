@@ -18,8 +18,19 @@ module.exports = {
           name: "Color",
           type: "string",
           value: false
+        },
+        temperature: {
+          "@type": "TemperatureProperty",
+          label: "Temperature",
+          name: "Temperature",
+          type: "number",
+          value: false
         }
       }
     }
+  },
+
+  property: {
+    setValue: function() {}
   }
 };

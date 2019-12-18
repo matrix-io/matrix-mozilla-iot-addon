@@ -1,5 +1,4 @@
 const { Adapter, Device } = require("gateway-addon");
-const matrix = require("@matrix-io/matrix-lite");
 const matrixProp = require("./properties");
 const matrixBoard = require("./boards/boards");
 
@@ -42,7 +41,6 @@ class MATRIXAdapter extends Adapter {
     super(addonManager, "MATRIXAdapter", manifest.name);
     addonManager.addAdapter(this);
 
-    // Determine which MATRIX board is being used
     if (!this.devices["matrix"]) {
       const device = new MATRIXDevice(
         this,
@@ -85,7 +83,7 @@ class MATRIXAdapter extends Adapter {
   }
 
   /**
-   * Example process ro remove a device from the adapter.
+   * Process ro remove a device from the adapter.
    *
    * The important part is to call: `this.handleDeviceRemoved(device)`
    *

@@ -1,4 +1,6 @@
 const { Property } = require("gateway-addon");
+const matrix = require("@matrix-io/matrix-lite");
+const matrixBoard = require("./boards/boards");
 
 class MATRIXProperty extends Property {
   constructor(device, name, propertyDescription) {
@@ -36,10 +38,9 @@ class MATRIXProperty extends Property {
               console.log(this.name + " MATRIX::EVENT not handled");
           }
 
-          console.log("CARLOS LOOK AT THIS NAME!!!!");
           console.log(this.name);
-          console.log("CARLOS LOOK AT THIS Value!!!!");
           console.log(this.value);
+          console.log(this);
         })
         .catch(err => {
           reject(err);
