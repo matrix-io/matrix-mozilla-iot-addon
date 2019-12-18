@@ -1,7 +1,11 @@
+/* Create generic REST API handlers without having to create
+ * a full HTTP server.
+ */
+
 const { APIHandler, APIResponse } = require("gateway-addon");
 const manifest = require("./manifest.json");
 
-class ExampleAPIHandler extends APIHandler {
+class DeviceAPIHandler extends APIHandler {
   constructor(addonManager, adapter) {
     super(addonManager, manifest.id);
     addonManager.addAPIHandler(this);
@@ -32,4 +36,4 @@ class ExampleAPIHandler extends APIHandler {
   }
 }
 
-module.exports = ExampleAPIHandler;
+module.exports = DeviceAPIHandler;

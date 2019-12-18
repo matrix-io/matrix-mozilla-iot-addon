@@ -1,61 +1,13 @@
-const { Adapter, Device, Property } = require("gateway-addon");
-const props = require("./properties");
+const { Adapter, Device } = require("gateway-addon");
 const matrix = require("@matrix-io/matrix-lite");
-matrix.led.set("black");
+const matrixProp = require("./properties");
+const boards = require("./boards/boards");
 
-let ExampleAPIHandler = null;
+let APIHandler;
 try {
-  ExampleAPIHandler = require("../example-api-handler");
+  APIHandler = require("../api-handler");
 } catch (e) {
-  console.log(`API Handler unavailable: ${e}`);
-}
-
-class ExampleProperty extends Property {
-  constructor(device, name, propertyDescription) {
-    super(device, name, propertyDescription);
-    this.setCachedValue(propertyDescription.value);
-    this.device.notifyPropertyChanged(this);
-  }
-
-  /**
-   * Set the value of the property.
-   *
-   * @param {*} value The new value to set
-   * @returns a promise which resolves to the updated value.
-   */
-  setValue(value) {
-    return new Promise((resolve, reject) => {
-      super
-        .setValue(value)
-        .then(updatedValue => {
-          resolve(updatedValue);
-          this.device.notifyPropertyChanged(this);
-
-          // Determine
-          switch (this.name) {
-            // LED Toggle
-            case "on":
-              if (updatedValue === true) matrix.led.set({ b: 1 });
-              else matrix.led.set({});
-              break;
-            // Color Picker
-            case "color":
-              matrix.led.set(this.value);
-              break;
-            default:
-              console.log(this.name + " MATRIX::EVENT not handled");
-          }
-
-          console.log("CARLOS LOOK AT THIS NAME!!!!");
-          console.log(this.name);
-          console.log("CARLOS LOOK AT THIS Value!!!!");
-          console.log(this.value);
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
-  }
+  console.log("API Handler unavailable: ${e}");
 }
 
 class ExampleDevice extends Device {
@@ -67,16 +19,12 @@ class ExampleDevice extends Device {
     this.description = deviceDescription.description;
     for (const propertyName in deviceDescription.properties) {
       const propertyDescription = deviceDescription.properties[propertyName];
-      const property = new ExampleProperty(
-        this,
-        propertyName,
-        propertyDescription
-      );
+      const property = new matrixProp(this, propertyName, propertyDescription);
       this.properties.set(propertyName, property);
     }
 
-    // Remove description link
-    // if (ExampleAPIHandler) {
+    // description link remove
+    // if (APIHandler) {
     //   this.links.push({
     //     rel: "alternate",
     //     mediaType: "text/html",
@@ -94,12 +42,11 @@ class ExampleAdapter extends Adapter {
     super(addonManager, "ExampleAdapter", manifest.name);
     addonManager.addAdapter(this);
 
-    if (!this.devices["matrix-board"]) {
-      const device = new ExampleDevice(this, "matrix-board", {
-        name: "MATRIX Board",
-        "@type": ["MATRIX Creator", "MATRIX Voice"],
+    if (!this.devices["matrix"]) {
+      const device = new ExampleDevice(this, "matrix", {
+        name: "MATRIX",
+        // "@type": ["",""],
         description: "MATRIX Development Board",
-        // properties: [props.on(), props.color()]
         properties: {
           on: {
             "@type": "OnOffProperty",
@@ -121,8 +68,8 @@ class ExampleAdapter extends Adapter {
       this.handleDeviceAdded(device);
     }
 
-    if (ExampleAPIHandler) {
-      this.apiHandler = new ExampleAPIHandler(addonManager, this);
+    if (APIHandler) {
+      this.apiHandler = new APIHandler(addonManager, this);
     }
   }
 
@@ -132,7 +79,7 @@ class ExampleAdapter extends Adapter {
   //
   /////////////////////////////////////////////
   /**
-   * Example process to add a new device to the adapter.
+   * Process to add a new device to the adapter.
    *
    * The important part is to call: `this.handleDeviceAdded(device)`
    *
@@ -185,13 +132,7 @@ class ExampleAdapter extends Adapter {
    * Cancel the pairing/discovery process.
    */
   cancelPairing() {
-    console.log(
-      "MATRIX-Adapter:",
-      this.name,
-      "id",
-      this.id,
-      "pairing cancelled"
-    );
+    console.log(this.name, "id", this.id, "pairing cancelled");
   }
 
   /**
@@ -227,7 +168,7 @@ class ExampleAdapter extends Adapter {
    */
   cancelRemoveThing(device) {
     console.log(
-      "ExampleAdapter:",
+      "Adapter:",
       this.name,
       "id",
       this.id,

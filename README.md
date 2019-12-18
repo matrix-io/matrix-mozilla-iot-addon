@@ -24,7 +24,7 @@ npm install
 
 # Development
 
-Changes are loaded by restarting the `mozilla-iot-gateway` service.
+Changes are loaded by restarting the `mozilla-iot-gateway` service or by manually enabling/disabling the addon.
 
 ```bash
 npm run load
