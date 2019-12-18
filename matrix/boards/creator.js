@@ -1,8 +1,25 @@
-const matrix = require("@matrix-io/matrix-lite");
-
-let APIHandler;
-try {
-  APIHandler = require("../../api-handler");
-} catch (e) {
-  console.log("API Handler unavailable: ${e}");
-}
+module.exports = {
+  adapter: {
+    description: {
+      name: "MATRIX Creator",
+      // "@type": ["",""],
+      description: "MATRIX Creator Development Board",
+      properties: {
+        on: {
+          "@type": "OnOffProperty",
+          label: "On/Off",
+          name: "on",
+          type: "boolean",
+          value: false
+        },
+        color: {
+          "@type": "ColorProperty",
+          label: "Color",
+          name: "Color",
+          type: "string",
+          value: false
+        }
+      }
+    }
+  }
+};

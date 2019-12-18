@@ -1,7 +1,7 @@
 const { Adapter, Device } = require("gateway-addon");
 const matrix = require("@matrix-io/matrix-lite");
 const matrixProp = require("./properties");
-const boards = require("./boards/boards");
+const matrixBoard = require("./boards/boards");
 
 let APIHandler;
 try {
@@ -10,7 +10,7 @@ try {
   console.log("API Handler unavailable: ${e}");
 }
 
-class ExampleDevice extends Device {
+class MATRIXDevice extends Device {
   constructor(adapter, id, deviceDescription) {
     super(adapter, id);
     this.name = deviceDescription.name;
@@ -23,47 +23,32 @@ class ExampleDevice extends Device {
       this.properties.set(propertyName, property);
     }
 
-    // description link remove
-    // if (APIHandler) {
-    //   this.links.push({
-    //     rel: "alternate",
-    //     mediaType: "text/html",
-    //     // eslint-disable-next-line max-len
-    //     href: `/extensions/example-adapter?thingId=${encodeURIComponent(
-    //       this.id
-    //     )}`
-    //   });
-    // }
+    if (APIHandler) {
+      // description link remove
+      // this.links.push({
+      //   rel: "alternate",
+      //   mediaType: "text/html",
+      //   // eslint-disable-next-line max-len
+      //   href: `/extensions/example-adapter?thingId=${encodeURIComponent(
+      //     this.id
+      //   )}`
+      // });
+    }
   }
 }
 
-class ExampleAdapter extends Adapter {
+class MATRIXAdapter extends Adapter {
   constructor(addonManager, manifest) {
-    super(addonManager, "ExampleAdapter", manifest.name);
+    super(addonManager, "MATRIXAdapter", manifest.name);
     addonManager.addAdapter(this);
 
+    // Determine which MATRIX board is being used
     if (!this.devices["matrix"]) {
-      const device = new ExampleDevice(this, "matrix", {
-        name: "MATRIX",
-        // "@type": ["",""],
-        description: "MATRIX Development Board",
-        properties: {
-          on: {
-            "@type": "OnOffProperty",
-            label: "On/Off",
-            name: "on",
-            type: "boolean",
-            value: false
-          },
-          color: {
-            "@type": "ColorProperty",
-            label: "Color",
-            name: "Color",
-            type: "string",
-            value: false
-          }
-        }
-      });
+      const device = new MATRIXDevice(
+        this,
+        "matrix",
+        matrixBoard.adapter.description
+      );
 
       this.handleDeviceAdded(device);
     }
@@ -92,7 +77,7 @@ class ExampleAdapter extends Adapter {
       if (deviceId in this.devices) {
         reject(`Device: ${deviceId} already exists.`);
       } else {
-        const device = new ExampleDevice(this, deviceId, deviceDescription);
+        const device = new MATRIXDevice(this, deviceId, deviceDescription);
         this.handleDeviceAdded(device);
         resolve(device);
       }
@@ -179,4 +164,4 @@ class ExampleAdapter extends Adapter {
   }
 }
 
-module.exports = ExampleAdapter;
+module.exports = MATRIXAdapter;
