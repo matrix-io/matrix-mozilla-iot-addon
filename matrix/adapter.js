@@ -2,13 +2,6 @@ const { Adapter, Device } = require("gateway-addon");
 const matrixProp = require("./properties");
 const matrixBoard = require("./boards/boards");
 
-let APIHandler;
-try {
-  APIHandler = require("../api-handler");
-} catch (e) {
-  console.log("API Handler unavailable: ${e}");
-}
-
 class MATRIXDevice extends Device {
   constructor(adapter, id, deviceDescription) {
     super(adapter, id);
@@ -16,22 +9,12 @@ class MATRIXDevice extends Device {
     this.type = deviceDescription.type;
     this["@type"] = deviceDescription["@type"];
     this.description = deviceDescription.description;
+
+    // Initialize each device's property
     for (const propertyName in deviceDescription.properties) {
       const propertyDescription = deviceDescription.properties[propertyName];
       const property = new matrixProp(this, propertyName, propertyDescription);
       this.properties.set(propertyName, property);
-    }
-
-    if (APIHandler) {
-      // description link remove
-      // this.links.push({
-      //   rel: "alternate",
-      //   mediaType: "text/html",
-      //   // eslint-disable-next-line max-len
-      //   href: `/extensions/example-adapter?thingId=${encodeURIComponent(
-      //     this.id
-      //   )}`
-      // });
     }
   }
 }
@@ -41,19 +24,11 @@ class MATRIXAdapter extends Adapter {
     super(addonManager, "MATRIXAdapter", manifest.name);
     addonManager.addAdapter(this);
 
-    if (!this.devices["matrix"]) {
-      const device = new MATRIXDevice(
-        this,
-        "matrix",
-        matrixBoard.adapter.description
+    // Add MATRIX device if non-existent
+    if (!this.devices["matrix"])
+      this.handleDeviceAdded(
+        new MATRIXDevice(this, "matrix", matrixBoard.adapter.description)
       );
-
-      this.handleDeviceAdded(device);
-    }
-
-    if (APIHandler) {
-      this.apiHandler = new APIHandler(addonManager, this);
-    }
   }
 
   //////////////////////////////////////////////

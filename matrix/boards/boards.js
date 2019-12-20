@@ -1,8 +1,4 @@
-/*
- * Determines which MATRIX Board is being used.
- * Exposes properties for said board.
- */
-
+// Expose properties for currently attached board
 const info = require("@matrix-io/matrix-lite").info;
 const creator = require("./creator");
 const voice = require("./voice");
