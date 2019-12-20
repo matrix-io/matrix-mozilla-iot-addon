@@ -6,13 +6,6 @@ class MATRIXProperty extends Property {
   constructor(device, name, propertyDescription) {
     super(device, name, propertyDescription);
     this.setCachedValue(propertyDescription.value);
-
-    console.log("DEBUGGG: propertyDescription");
-    console.log(propertyDescription);
-
-    console.log("DEBUGGG: this");
-    console.log(this);
-
     this.device.notifyPropertyChanged(this);
   }
 
@@ -23,9 +16,6 @@ class MATRIXProperty extends Property {
    * @returns a promise which resolves to the updated value.
    */
   setValue(value) {
-    console.log("object::::");
-    console.log(this);
-
     return new Promise((resolve, reject) => {
       super
         .setValue(value)
@@ -47,8 +37,6 @@ class MATRIXProperty extends Property {
             default:
               console.log(this.name + " MATRIX::EVENT not handled");
           }
-
-          // console.log(this);
         })
         .catch(err => {
           reject(err);

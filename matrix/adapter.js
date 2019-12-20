@@ -29,6 +29,12 @@ class MATRIXAdapter extends Adapter {
       this.handleDeviceAdded(
         new MATRIXDevice(this, "matrix", matrixBoard.adapter.description)
       );
+
+    // TODO: Give prop map to board.js and handle it from there
+    // * this is only called once
+    let prop = this.devices["matrix"].properties.get("temperature");
+    prop.setCachedValue(5); // update property value
+    prop.device.notifyPropertyChanged(prop); // update GUI value
   }
 
   //////////////////////////////////////////////
@@ -135,6 +141,6 @@ class MATRIXAdapter extends Adapter {
       ")"
     );
   }
-}
+} //
 
 module.exports = MATRIXAdapter;
