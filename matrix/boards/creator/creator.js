@@ -1,37 +1,56 @@
+const matrix = require("@matrix-io/matrix-lite");
+const sensors = require("./sensors");
+
+sensorInterval = undefined;
+
 module.exports = {
+  init: function(adapter) {
+    setInterval(() => {
+      let updatedSensors = {
+        ...matrix.imu.read(),
+        ...matrix.uv.read(),
+        ...matrix.pressure.read(),
+        ...matrix.humidity.read()
+      };
+
+      for (sensor in sensors.properties) {
+        let prop = adapter.devices["matrix"].properties.get(sensor);
+        prop.setCachedValue(updatedSensors[sensor]); // set internal value
+        prop.device.notifyPropertyChanged(prop); // tell GUI to show new value
+      }
+    }, 1000);
+  },
+
+  stop: function() {
+    clearInterval(sensorInterval);
+  },
+
+  // Device properties
   adapter: {
     description: {
       name: "MATRIX Creator",
       // "@type": ["",""],
       description: "MATRIX Creator Development Board",
+
       properties: {
         on: {
           "@type": "OnOffProperty",
           label: "On/Off",
           name: "on",
           type: "boolean",
-          value: false // not sure if this prop works
+          value: false
         },
         color: {
           "@type": "ColorProperty",
           label: "Color",
           name: "Color",
           type: "string",
-          value: "#000" // not sure if this prop works
+          value: "#000"
         },
-        temperature: {
-          "@type": "TemperatureProperty",
-          label: "Temperature",
-          name: "Temperature",
-          type: "number",
-          value: 0 // not sure if this prop works
-        }
+
+        ...sensors.properties
       }
     }
-  },
-
-  property: {
-    setValue: function() {}
   }
 };
 

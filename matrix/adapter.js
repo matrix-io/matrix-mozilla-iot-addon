@@ -24,17 +24,13 @@ class MATRIXAdapter extends Adapter {
     super(addonManager, "MATRIXAdapter", manifest.name);
     addonManager.addAdapter(this);
 
-    // Add MATRIX device if non-existent
+    // Add MATRIX device if none currently exist
     if (!this.devices["matrix"])
       this.handleDeviceAdded(
         new MATRIXDevice(this, "matrix", matrixBoard.adapter.description)
       );
 
-    // TODO: Give prop map to board.js and handle it from there
-    // * this is only called once
-    let prop = this.devices["matrix"].properties.get("temperature");
-    prop.setCachedValue(5); // update property value
-    prop.device.notifyPropertyChanged(prop); // update GUI value
+    matrixBoard.init(this);
   }
 
   //////////////////////////////////////////////
@@ -76,6 +72,7 @@ class MATRIXAdapter extends Adapter {
       const device = this.devices[deviceId];
       if (device) {
         this.handleDeviceRemoved(device);
+        matrixBoard.stop(); // gracefully stop matrix processes
         resolve(device);
       } else {
         reject(`Device: ${deviceId} not found.`);

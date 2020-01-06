@@ -1,4 +1,5 @@
 module.exports = {
+  // device properties
   adapter: {
     description: {
       name: "MATRIX Voice",
