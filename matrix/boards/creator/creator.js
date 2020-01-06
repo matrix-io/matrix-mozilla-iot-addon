@@ -15,8 +15,9 @@ module.exports = {
       };
 
       // format sensor values
+      updatedSensors.uv = updatedSensors.uv.toFixed(4);
 
-      // update gui sensor values
+      // update GUI sensor values
       for (sensor in sensors.properties) {
         let prop = adapter.devices["matrix"].properties.get(sensor);
         prop.setCachedValue(updatedSensors[sensor]); // set internal value
@@ -59,13 +60,6 @@ module.exports = {
 };
 
 /*
-setCachedValue = ({ '@type': 'OnOffProperty',
-                    label: 'On/Off',
-                    name: 'on',
-                    type: 'boolean',
-                    value: false 
-                  }.value);
-
 this = 
  MATRIXProperty {
    device: 

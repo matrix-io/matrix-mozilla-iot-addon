@@ -1,12 +1,25 @@
 # MATRIX-adapter
 
-This is a super basic and simple example of an adapter add-on for the WebThings
-Gateway.
+Adds support for MATRIX devices in the Mozilla IoT dashboard
 
 For more information, you may want to look at these:
 
 - https://hacks.mozilla.org/2018/02/creating-an-add-on-for-the-project-things-gateway/
 - https://hacks.mozilla.org/2018/02/making-a-clap-sensing-web-thing/
+
+# Current Roadmap
+
+[x] MATRIX Creator
+
+- [x] LEDs
+- [x] Sensors
+- [ ] GPIO
+- [ ] NFC
+
+[ ] MATRIX Voice
+
+- [ ] LEDs
+- [ ] GPIO
 
 # Install
 

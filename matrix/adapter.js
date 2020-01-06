@@ -102,15 +102,8 @@ class MATRIXAdapter extends Adapter {
    * @param {Object} device Device to unpair with
    */
   removeThing(device) {
-    console.log(
-      "MATRIX-Adapter:",
-      this.name,
-      "id",
-      this.id,
-      "removeThing(",
-      device.id,
-      ") started"
-    );
+    console.log("MATRIX-Adapter:", this.name, "id", this.id);
+    console.log("removeThing(", device.id, ") started");
 
     this.removeDevice(device.id)
       .then(() => {
@@ -128,16 +121,9 @@ class MATRIXAdapter extends Adapter {
    * @param {Object} device Device that is currently being paired
    */
   cancelRemoveThing(device) {
-    console.log(
-      "Adapter:",
-      this.name,
-      "id",
-      this.id,
-      "cancelRemoveThing(",
-      device.id,
-      ")"
-    );
+    console.log("Adapter:", this.name, "id", this.id);
+    console.log("cancelRemoveThing(", device.id, ")");
   }
-} //
+}
 
 module.exports = MATRIXAdapter;
