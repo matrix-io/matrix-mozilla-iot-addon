@@ -9,17 +9,15 @@ For more information, you may want to look at these:
 
 # Current Roadmap
 
-[x] MATRIX Creator
+- [ ] MATRIX Creator
+  - [ ] LEDs
+  - [ ] Sensors
+  - [ ] GPIO
+  - [ ] NFC
 
-- [x] LEDs
-- [x] Sensors
-- [ ] GPIO
-- [ ] NFC
-
-[ ] MATRIX Voice
-
-- [ ] LEDs
-- [ ] GPIO
+- [ ] MATRIX Voice
+  - [ ] LEDs
+  - [ ] GPIO
 
 # Install
 
