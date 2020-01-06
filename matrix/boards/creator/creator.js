@@ -6,6 +6,7 @@ sensorInterval = undefined;
 module.exports = {
   init: function(adapter) {
     setInterval(() => {
+      // store latest sensor data
       let updatedSensors = {
         ...matrix.imu.read(),
         ...matrix.uv.read(),
@@ -13,6 +14,9 @@ module.exports = {
         ...matrix.humidity.read()
       };
 
+      // format sensor values
+
+      // update gui sensor values
       for (sensor in sensors.properties) {
         let prop = adapter.devices["matrix"].properties.get(sensor);
         prop.setCachedValue(updatedSensors[sensor]); // set internal value
