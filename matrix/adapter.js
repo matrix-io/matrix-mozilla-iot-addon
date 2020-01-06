@@ -30,7 +30,7 @@ class MATRIXAdapter extends Adapter {
         new MATRIXDevice(this, "matrix", matrixBoard.adapter.description)
       );
 
-    matrixBoard.init(this);
+    matrixBoard.start(this);
   }
 
   //////////////////////////////////////////////

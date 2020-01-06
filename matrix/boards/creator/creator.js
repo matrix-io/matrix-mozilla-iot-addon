@@ -4,7 +4,7 @@ const sensors = require("./sensors");
 sensorInterval = undefined;
 
 module.exports = {
-  init: function(adapter) {
+  start: function(adapter) {
     setInterval(() => {
       // store latest sensor data
       let updatedSensors = {

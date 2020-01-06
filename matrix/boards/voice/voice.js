@@ -1,3 +1,5 @@
+// SUPPORT IS NOT FULLY ADDED YET
+
 module.exports = {
   // device properties
   adapter: {
