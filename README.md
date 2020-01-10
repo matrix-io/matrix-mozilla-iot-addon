@@ -24,7 +24,7 @@ For more information, you may want to look at these:
 This requires the following perquisites:
 
 - [Mozilla IoT](https://iot.mozilla.org/docs/gateway-getting-started-guide.html)
-- [MATRIX Lite JS](https://matrix-io.github.io/matrix-documentation/matrix-lite/getting-started/javascript/)
+- [MATRIX HAL](https://matrix-io.github.io/matrix-documentation/matrix-hal/getting-started/installation-package/)
 
 ```bash
 cd ~/.mozilla-iot/addons/
