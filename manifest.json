@@ -1,6 +1,6 @@
 {
   "author": "MATRIX Labs",
-  "description": "MATRIX Adapter for Mozilla IoT",
+  "description": "Automatically exposes the components & sensors of the MATRIX device that's currently attached to the Gateway",
   "gateway_specific_settings": {
     "webthings": {
       "exec": "{nodeLoader} {path}",
@@ -13,7 +13,7 @@
   "id": "matrix-adapter",
   "license": "GPL-3.0",
   "manifest_version": 1,
-  "name": "MATRIX Adapter",
-  "short_name": "MATRIX Adapter",
+  "name": "MATRIX Voice & Creator",
+  "short_name": "MATRIX Voice & Creator",
   "version": "0.0.1"
 }

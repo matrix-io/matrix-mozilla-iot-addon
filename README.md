@@ -1,4 +1,4 @@
-# MATRIX-adapter
+# MATRIX-Mozilla-IoT-Addon
 
 Adds support for MATRIX devices in the Mozilla IoT dashboard
 
@@ -10,6 +10,7 @@ For more information, you may want to look at these:
 # Current Roadmap
 
 - [x] MATRIX Creator
+
   - [x] LEDs
   - [x] Sensors
   - [ ] GPIO
