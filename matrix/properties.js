@@ -2,6 +2,8 @@ const { Property } = require("gateway-addon");
 const matrix = require("@matrix-io/matrix-lite");
 const matrixBoard = require("./boards/boards");
 
+let lastLedColor = { r: 0, g: 0, b: 100, w: 0 };
+
 class MATRIXProperty extends Property {
   constructor(device, name, propertyDescription) {
     super(device, name, propertyDescription);
@@ -27,12 +29,13 @@ class MATRIXProperty extends Property {
           switch (this.name) {
             // LED Toggle
             case "on":
-              if (updatedValue === true) matrix.led.set({ b: 1 });
+              if (updatedValue === true) matrix.led.set(lastLedColor);
               else matrix.led.set({});
               break;
             // Color Picker
             case "color":
-              matrix.led.set(this.value);
+              lastLedColor = this.value;
+              // matrix.led.set(this.value);
               break;
             default:
               console.log(this.name + " MATRIX::EVENT not handled");
